@@ -1,5 +1,5 @@
 # torpedo
-connect to databases in private VPCs the easy way - no VPN required
+Connect to databases in private VPCs the easy way - no VPN required
 
 ### How it works
 On first run, `torpedo` will create an ECS cluster (this does not cost anything). From there, any time you want to connect to a database `torpedo` will generate random SSH keys, spin up a temporary container that has access to your database, and forward a local port through it. Then you can connect to the database on `localhost` as though it were running locally.
