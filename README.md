@@ -7,6 +7,14 @@ On first run, `torpedo` will create an ECS cluster (this does not cost anything)
 ### Usage
 Make sure you have a default AWS profile set or manually set one with `AWS_PROFILE=xxx torpedo`
 ```
+$ torpedo
+🚀 torpedo is ready
+
+connect to port 5432 on localhost
+it's forwarded to main-1.cz73excokyft.us-east-2.rds.amazonaws.com:5432
+
+press ctrl+c to exit
+```
 NAME:
    torpedo - A tool to access AWS resources behind a VPC
 
