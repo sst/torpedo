@@ -22,4 +22,6 @@ jobs:
 
       - name: build
         run: ./scripts/build_binary
+        env:
+          GH_TOKEN: ${{ github.token }}
 
