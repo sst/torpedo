@@ -15,6 +15,9 @@ it's forwarded to main-1.cz73excokyft.us-east-2.rds.amazonaws.com:5432
 
 press ctrl+c to exit
 ```
+
+*Help*
+```
 NAME:
    torpedo - A tool to access AWS resources behind a VPC
 
