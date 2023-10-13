@@ -36,7 +36,10 @@ changelog:
       - '^docs:'
       - '^test:'
 
-# The lines beneath this are called `modelines`. See `:help modeline`
-# Feel free to remove those if you don't want/use them.
-# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
-# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+aurs:
+  - homepage: "https://github.com/sst/torpedo"
+    description: "Connect to databases in private VPCs securely the easy way - no VPN required"
+    private_key: '{{ .Env.AUR_KEY }}'
+    git_url: 'ssh://aur@aur.archlinux.org/torpedo-bin.git'
+
+
