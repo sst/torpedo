@@ -1,0 +1,21 @@
+name: binary
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v3
+
+      - name: build
+        run: ./scripts/publish_binary
+
