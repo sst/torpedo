@@ -42,4 +42,7 @@ aurs:
     private_key: '{{ .Env.AUR_KEY }}'
     git_url: 'ssh://aur@aur.archlinux.org/torpedo-bin.git'
 
-
+brews:
+    - name: torpedo
+      homepage: "https://github.com/sst/torpedo"
+      description: "Connect to databases in private VPCs securely the easy way - no VPN required"
