@@ -1,0 +1,6 @@
+#!/bin/bash
+
+IMAGE=thdxr/torpedo
+
+sudo docker build -t $IMAGE .
+sudo docker push $IMAGE

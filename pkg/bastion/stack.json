@@ -1,0 +1,62 @@
+{
+  "Description": "torpedo",
+  "Resources": {
+    "TorpedoCluster": {
+      "Type": "AWS::ECS::Cluster",
+      "Properties": { "ClusterName": "TorpedoCluster" }
+    },
+    "TorpedoBastionTaskDefinition": {
+      "Type": "AWS::ECS::TaskDefinition",
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Essential": true,
+            "Image": "thdxr/torpedo:latest",
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": { "Ref": "TorpedoLogGroup" },
+                "awslogs-region": { "Ref": "AWS::Region" },
+                "awslogs-stream-prefix": "task"
+              }
+            },
+            "Name": "torpedo-bastion",
+            "PortMappings": [{ "ContainerPort": 2222 }],
+            "Privileged": "false"
+          }
+        ],
+        "Cpu": 256,
+        "Memory": 512,
+        "Family": "torpedo-bastion",
+        "NetworkMode": "awsvpc",
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": ["TorpedoBastionTaskExecutionRole", "Arn"]
+        },
+        "TaskRoleArn": {
+          "Fn::GetAtt": ["TorpedoBastionTaskExecutionRole", "Arn"]
+        },
+        "RequiresCompatibilities": ["FARGATE"]
+      }
+    },
+    "TorpedoLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": { "RetentionInDays": 7 }
+    },
+    "TorpedoBastionTaskExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": {
+            "Effect": "Allow",
+            "Principal": { "Service": "ecs-tasks.amazonaws.com" },
+            "Action": "sts:AssumeRole"
+          }
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+        ]
+      }
+    }
+  },
+  "Outputs": {}
+}

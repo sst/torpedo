@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+OUT=./dist
+NAME=$OUT/torpedo
+
+rm -rf $OUT
+mkdir -p $OUT
+
+# Build for Linux (amd64) 
+GOOS=linux GOARCH=amd64 go build -o $NAME-linux-amd64 ./cmd/torpedo/main.go
+# Build for Linux (arm64)
+GOOS=linux GOARCH=arm64 go build -o $NAME-linux-arm64 ./cmd/torpedo/main.go
+# Build for macOS (amd64)
+GOOS=darwin GOARCH=amd64 go build -o $NAME-macos-amd64 ./cmd/torpedo/main.go
+# Build for macOS (arm64)
+GOOS=darwin GOARCH=arm64 go build -o $NAME-macos-arm64 ./cmd/torpedo/main.go
+# Build for Windows (amd64)
+GOOS=windows GOARCH=amd64 go build -o $NAME-windows-amd64.exe ./cmd/torpedo/main.go
+# Build for Windows (arm64)
+GOOS=windows GOARCH=arm64 go build -o $NAME-windows-arm64.exe ./cmd/torpedo/main.go
