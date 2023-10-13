@@ -16,6 +16,6 @@ jobs:
         # https://github.com/actions/checkout
         uses: actions/checkout@v3
 
-      - name: build
+      - name: build_binary
         run: ./scripts/publish_binary
 
