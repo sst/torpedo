@@ -24,4 +24,4 @@ GLOBAL OPTIONS:
 ```
 ### Acknowledgements
 
-This wasn't my idea! There is a much more fleshed out product called `7777` here: https://port7777.com/ and the initial ideas [Matthieu Napoli](https://mnapoli.fr/) and [Marco Aurélio Deleu](https://blog.deleu.dev/). `torpedo` works in a similar way but was rewritten in Go for faster bootup speeds and made open source for community contribution.
+This wasn't my idea! There is a much more fleshed out product called `7777` here: https://port7777.com/ by [Matthieu Napoli](https://mnapoli.fr/) and [Marco Aurélio Deleu](https://blog.deleu.dev/). `torpedo` works in a similar way but was rewritten in Go for faster bootup speeds and made open source for community contribution.
