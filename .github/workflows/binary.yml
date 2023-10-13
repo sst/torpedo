@@ -2,26 +2,38 @@ name: binary
 
 on:
   push:
-    branches:
-      - main
+    # run only against tags
+    tags:
+      - '*'
+
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
-  release:
-    name: release
+  goreleaser:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: go
-        uses: actions/setup-go@v4
+      - run: git fetch --force --tags
+
+      - uses: actions/setup-go@v4
         with:
           go-version: '>=1.21.0'
 
-      - name: build
-        run: ./scripts/build_binary
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Go Mod
+        run: go mod download
 
+      - uses: goreleaser/goreleaser-action@v4
+        with:
+          distribution: goreleaser
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
