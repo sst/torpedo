@@ -43,7 +43,7 @@ func (c *Client) Start(cfg ConnectConfig) error {
 		cfg.Server,
 		ssh.PublicKeys(c.signer),
 		fmt.Sprintf("%s:%s", cfg.DestinationHost, cfg.DestinationPort),
-		"1234",
+		cfg.BindPort,
 	)
 	c.tunnel = tunnel
 
