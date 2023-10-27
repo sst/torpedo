@@ -90,7 +90,7 @@ func main() {
 						spin.Disable()
 						options := make([]string, len(b.DBS))
 						for i, db := range b.DBS {
-							options[i] = *db.DBClusterIdentifier
+							options[i] = *db.DBInstanceIdentifier
 						}
 						index, _, err := (&promptui.Select{
 							Label:        "select database",
@@ -105,8 +105,8 @@ func main() {
 						spin.Enable()
 					}
 
-					spin.Suffix = " starting proxy to " + color.BlueString(*target.DBClusterIdentifier)
-					slog.Info("starting bastion", "target", *target.DBClusterIdentifier)
+					spin.Suffix = " starting proxy to " + color.BlueString(*target.DBInstanceIdentifier)
+					slog.Info("starting bastion", "target", *target.DBInstanceIdentifier)
 					_, ip, err := b.Start(b.DBS[0], c.PublicKey())
 					if err != nil {
 						return err
