@@ -107,7 +107,7 @@ func main() {
 
 					spin.Suffix = " starting proxy to " + color.BlueString(*target.DBInstanceIdentifier)
 					slog.Info("starting bastion", "target", *target.DBInstanceIdentifier)
-					_, ip, err := b.Start(b.DBS[0], c.PublicKey())
+					_, ip, err := b.Start(target, c.PublicKey())
 					if err != nil {
 						return err
 					}
