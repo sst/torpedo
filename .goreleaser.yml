@@ -1,6 +1,6 @@
+project_name: torpedo
 before:
   hooks:
-    # You may remove this if you don't use go modules.
     - go mod tidy
 builds:
   - env:
@@ -16,7 +16,9 @@ archives:
     # this name template makes the OS and Arch compatible with the results of uname.
     name_template: >-
       torpedo-
-      {{- title .Os }}-
+      {{- if eq .Os "darwin" }}mac-
+      {{- else if eq .Os "windows" }}windows-
+      {{- else if eq .Os "linux" }}linux-{{end}}
       {{- if eq .Arch "amd64" }}x86_64
       {{- else if eq .Arch "386" }}i386
       {{- else }}{{ .Arch }}{{ end }}
@@ -29,6 +31,35 @@ checksum:
   name_template: 'checksums.txt'
 snapshot:
   name_template: "{{ incpatch .Version }}-next"
+aurs:
+  - homepage: "https://github.com/sst/torpedo"
+    description: "Connect to databases in private VPCs securely the easy way - no VPN required"
+    private_key: '{{ .Env.AUR_KEY }}'
+    git_url: 'ssh://aur@aur.archlinux.org/torpedo-bin.git'
+    package: |-
+      install -Dm755 ./torpedo "${pkgdir}/usr/bin/torpedo"
+brews:
+  - repository:
+      owner: sst
+      name: homebrew-tap
+nfpms:
+  - maintainer: sst
+    description: "Connect to databases in private VPCs securely the easy way - no VPN required"
+    formats:
+      - deb
+      - rpm
+    file_name_template: >-
+      {{ .ProjectName }}-
+      {{- if eq .Os "darwin" }}mac
+      {{- else }}{{ .Os }}{{ end }}-{{ .Arch }}
+scoop:
+  bucket:
+    owner: sst
+    name: scoop-bucket
+  homepage: "https://github.com/sst/torpedo"
+  description: "Connect to databases in private VPCs securely the easy way - no VPN required"
+  license: Apache 2.0
+
 changelog:
   sort: asc
   filters:
@@ -36,13 +67,3 @@ changelog:
       - '^docs:'
       - '^test:'
 
-aurs:
-  - homepage: "https://github.com/sst/torpedo"
-    description: "Connect to databases in private VPCs securely the easy way - no VPN required"
-    private_key: '{{ .Env.AUR_KEY }}'
-    git_url: 'ssh://aur@aur.archlinux.org/torpedo-bin.git'
-
-brews:
-    - name: torpedo
-      homepage: "https://github.com/sst/torpedo"
-      description: "Connect to databases in private VPCs securely the easy way - no VPN required"
